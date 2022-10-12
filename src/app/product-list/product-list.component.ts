@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { products } from '../products';
-import { MyhttpcallerService } from '../myhttpcaller.service';
+import { MyhttpcallerService, MyResult } from '../myhttpcaller.service';
 
 @Component({
   selector: 'app-product-list',
@@ -10,6 +10,8 @@ import { MyhttpcallerService } from '../myhttpcaller.service';
 })
 export class ProductListComponent {
   products = products;
+
+  beResults: MyResult[] = [];
 
   constructor(private callerService: MyhttpcallerService) {}
 
@@ -22,8 +24,12 @@ export class ProductListComponent {
   }
 
   myHttpCall() {
-    this.callerService.doGet().subscribe((x) => {
-      window.alert('sciaccato ' + x);
+    this.callerService.doGet().subscribe((res) => {
+        res.forEach(element => {
+           console.log(element.id+" - "+element.name);
+        });
+        this.beResults = res;
+        //window.alert('sciaccato ' + JSON.stringify(res));
     });
   }
 }

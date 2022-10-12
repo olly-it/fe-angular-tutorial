@@ -8,9 +8,15 @@ import { Observable } from 'rxjs';
 export class MyhttpcallerService {
   constructor(private http: HttpClient) {}
 
-  doGet(): Observable<Object | null> {
-    return this.http.get<{ name: string; id: number }[]>(
+  doGet(): Observable<MyResult[]> {
+    // this.http.get<{id:number; name:string}[]>('');
+    return this.http.get<MyResult[]>(
       'http://localhost:9999/tests/simple'
     );
   }
+}
+
+export class MyResult {
+    name?:String;
+    id?:number;
 }
